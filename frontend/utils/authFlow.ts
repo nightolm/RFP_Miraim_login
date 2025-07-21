@@ -88,9 +88,7 @@ export function validateInput(step: AuthStep, input: string): ValidationResult {
 export function getNextStep(currentStep: AuthStep, mode: AuthMode): AuthStep | null {
   if (mode === 'login') {
     switch (currentStep) {
-      case 'email':
-        return 'password';
-      case 'password':
+      case 'email_confirm':
         return 'complete';
       default:
         return null;

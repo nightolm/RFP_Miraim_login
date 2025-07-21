@@ -10,6 +10,7 @@ export type AuthStep =
   | 'konkatsuStatus'
   | 'location'
   | 'hobbies'
+  | 'email_confirm'
   | 'complete';
 
 export interface UserData {

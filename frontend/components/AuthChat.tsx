@@ -35,9 +35,10 @@ export default function AuthChat() {
   }, [messages]);
 
   useEffect(() => {
-    if (currentStep === 'start') {
+    if (currentStep === 'start' && mode === 'register') {
       setTimeout(() => {
         setCurrentStep('name');
+        addBotMessage('まずはお名前を教えてください。\n（例：山田太郎）');
       }, 1000);
     }
   }, [currentStep]);
@@ -149,6 +150,8 @@ export default function AuthChat() {
           status = '再チャレンジですね！\n新しい気持ちで頑張りましょう 🌟';
         }
         return `${status}\n\n登録が完了しました！🎊\n${userData.name}さんの婚活成功を心から応援しています。\n\n早速、Miraimの機能を使ってみませんか？`;
+      case 'email_confirm':
+        return `メールアドレスを確認しました。\n\nパスワードを入力してください。`;
       default:
         return 'ありがとうございます！';
     }
@@ -175,7 +178,7 @@ export default function AuthChat() {
     if (newMode === 'login') {
       setTimeout(() => {
         addBotMessage('おかえりなさい！👋\nMiraimにログインしましょう。\n\nメールアドレスを教えてください。');
-        setCurrentStep('email');
+        setCurrentStep('email_confirm');
       }, 1000);
     }
   };
@@ -197,7 +200,7 @@ export default function AuthChat() {
       setIsListening(true);
     };
 
-    recognition.onresult = (event) => {
+    recognition.onresult = (event: any) => {
       const transcript = event.results[0][0].transcript;
       setInputValue(transcript);
       setIsListening(false);
